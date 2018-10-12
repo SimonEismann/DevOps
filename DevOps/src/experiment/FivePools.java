@@ -16,10 +16,10 @@ public class FivePools {
 		 Thread.sleep(300000);
 
 		 System.out.println("EXPERIMENT");
-		 Load.browse(LoadLevel.LOAD150);
+		 long expStart = Load.browse(LoadLevel.LOAD150);
 		 
 		 System.out.println("COLLECTING LOGS");
-		 Logs.collectLogs();
+		 Logs.collectLogs(expStart, expStart + 5 * 60);
 
 		 System.out.println("SHUTTING DOWN");
 		 Setup.teardown();
