@@ -1,0 +1,10 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+	compile group: 'com.jcraft', name: 'jsch', version: '0.1.54'
+}
