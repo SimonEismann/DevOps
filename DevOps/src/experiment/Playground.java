@@ -1,4 +1,4 @@
-package experiments;
+package experiment;
 
 import setup.Load;
 import setup.LoadLevel;
