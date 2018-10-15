@@ -1,7 +1,11 @@
 package setup;
 
-import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -11,7 +15,7 @@ public class Logs {
             .ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
             .withZone(ZoneId.of("UTC"));
 
-	public static void collectLogs(long experimentStart) throws InterruptedException, FileNotFoundException {
+	public static void collectLogs(long experimentStart, String expName) throws InterruptedException, IOException {
 		long experimentEnd = experimentStart + 5 * 60000;
 		Thread.sleep(180000);
 		Util.getFile("10.1.3.48", "Setup/result_gcp.csv");
@@ -27,6 +31,10 @@ public class Logs {
 		    out.println(utilLogs);
 			out.close();
 		}
+		new File("/" +expName + "/test.csv").mkdirs();
+		Files.move(Paths.get("result_gcp.csv"), Paths.get("/" + expName + "/result_gcp.csv"), StandardCopyOption.REPLACE_EXISTING);
+		Files.move(Paths.get("timestamps.csv"), Paths.get("/" + expName + "/timestamps.csv"), StandardCopyOption.REPLACE_EXISTING);
+		Files.move(Paths.get("utilization.json"), Paths.get("/" + expName + "/utilization.json"), StandardCopyOption.REPLACE_EXISTING);
 	}
 
 }

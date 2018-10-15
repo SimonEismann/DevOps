@@ -1,6 +1,7 @@
 package experiment;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import setup.Load;
 import setup.LoadLevel;
@@ -9,7 +10,7 @@ import setup.Setup;
 
 public class FivePools {
 
-	public static void main(String[] args) throws InterruptedException, FileNotFoundException {
+	public static void main(String[] args) throws InterruptedException, IOException {
 		 System.out.println("SETUP");
 		 Setup.setup5Pools();
 		 
@@ -23,7 +24,7 @@ public class FivePools {
 		 long expStart = Load.browse(LoadLevel.LOAD150, false);
 		 
 		 System.out.println("COLLECTING LOGS");
-		 Logs.collectLogs(expStart);
+		 Logs.collectLogs(expStart, "5Pools-150Load");
 
 		 System.out.println("SHUTTING DOWN");
 		 Setup.teardown();
