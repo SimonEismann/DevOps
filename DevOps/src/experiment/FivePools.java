@@ -14,11 +14,13 @@ public class FivePools {
 		 Setup.setup5Pools();
 		 
 		 System.out.println("WARMUP");
-		 Load.browse(LoadLevel.LOAD150);
+		 Load.browse(LoadLevel.LOAD150, false);
+		 Thread.sleep(60000);
+		 Load.browse(LoadLevel.LOAD150, false);
 		 Thread.sleep(300000);
 
 		 System.out.println("EXPERIMENT");
-		 long expStart = Load.browse(LoadLevel.LOAD150);
+		 long expStart = Load.browse(LoadLevel.LOAD150, false);
 		 
 		 System.out.println("COLLECTING LOGS");
 		 Logs.collectLogs(expStart);

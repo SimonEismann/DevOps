@@ -13,8 +13,9 @@ public class Logs {
 
 	public static void collectLogs(long experimentStart) throws InterruptedException, FileNotFoundException {
 		long experimentEnd = experimentStart + 5 * 60000;
-		Thread.sleep(120000);
+		Thread.sleep(180000);
 		Util.getFile("10.1.3.48", "Setup/result_gcp.csv");
+		Util.getFile("10.1.3.48", "timestamps.csv");
 		String startTime = formatter.format(new Date(experimentStart).toInstant());
 		String endTime = formatter.format(new Date(experimentEnd).toInstant());
 		System.out.println(startTime);

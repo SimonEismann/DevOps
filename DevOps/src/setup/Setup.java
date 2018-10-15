@@ -2,7 +2,7 @@ package setup;
 
 public class Setup {
 
-	public static String webuiIp = "35.198.170.78";
+	public static String webuiIp = "35.242.242.97";
 	
 	public static void setup4Cores() throws InterruptedException {
 		Util.sendCommand("10.1.3.48", "rm -rf Setup/");
