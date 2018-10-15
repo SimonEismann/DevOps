@@ -15,7 +15,6 @@ public class Load {
 						+ " -l ./browse.lua -o ./result_gcp.csv -p test --randomize-users --wd 180 --wp 10 --wr "
 						+ Math.floor((double) loadLevel.loadLevel / 2) + " -u 5000");
 		String timestamp = loadDriverLogs.substring(loadDriverLogs.lastIndexOf("@") + 1, loadDriverLogs.lastIndexOf("@") + 14);
-		System.out.println(timestamp);
 		return Long.parseLong(timestamp);
 	}
 }

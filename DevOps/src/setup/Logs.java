@@ -1,12 +1,31 @@
 package setup;
 
-public class Logs {
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
-	public static void collectLogs(long experimentStart, long experimentEnd) throws InterruptedException {
-		Thread.sleep(20000);
+public class Logs {
+	static DateTimeFormatter formatter = DateTimeFormatter
+            .ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            .withZone(ZoneId.of("UTC"));
+
+	public static void collectLogs(long experimentStart) throws InterruptedException, FileNotFoundException {
+		long experimentEnd = experimentStart + 5 * 60000;
+		Thread.sleep(120000);
 		Util.getFile("10.1.3.48", "Setup/result_gcp.csv");
-		String utilLogs = Util.sendCommandWithReturn("10.1.3.48", "curl -X GET -H \"Authorization: Bearer ya29.GlsrBq7r4CIjBS4F7AuwszUKjTfp_cioF7CJIsiWwmCS7zvUi3djP97yz0YKMQi1mb9opOcUseJ9yRDeMCoD0Rzn9DT6EQPlj1CFn5fLK6U4JfZon4PS2_UEN2Tk\" \"https://monitoring.googleapis.com/v3/projects/devops-218113/timeSeries?filter=metric.type%3D%22compute.googleapis.com%2Finstance%2Fcpu%2Futilization%22&interval.endTime=2018-10-02T12%3A34%3A56.992Z&interval.startTime=2018-09-02T12%3A34%3A56.992Z\"");
+		String startTime = formatter.format(new Date(experimentStart).toInstant());
+		String endTime = formatter.format(new Date(experimentEnd).toInstant());
+		System.out.println(startTime);
+		System.out.println(endTime);
+		String token = Util.sendCommandWithReturn("10.1.3.48", "gcloud auth application-default print-access-token ").trim();
+		String utilLogs = Util.sendCommandWithReturn("10.1.3.48", "curl -X GET -H \"Authorization: Bearer " + token + "\" \"https://monitoring.googleapis.com/v3/projects/devops-218113/timeSeries?filter=metric.type%3D%22compute.googleapis.com%2Finstance%2Fcpu%2Futilization%22&interval.endTime=" + endTime + "&interval.startTime=" + startTime + "\"");
 		System.out.println(utilLogs);
+		try (PrintWriter out = new PrintWriter("utilization.json")) {
+		    out.println(utilLogs);
+			out.close();
+		}
 	}
 
 }
