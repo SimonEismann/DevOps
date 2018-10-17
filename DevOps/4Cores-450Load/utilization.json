@@ -1,0 +1,395 @@
+{
+  "timeSeries": [
+    {
+      "metric": {
+        "labels": {
+          "instance_name": "gke-mycluster-worker-becf8f5f-ctfv"
+        },
+        "type": "compute.googleapis.com/instance/cpu/utilization"
+      },
+      "resource": {
+        "type": "gce_instance",
+        "labels": {
+          "instance_id": "1556558697917533360",
+          "zone": "europe-west3-a",
+          "project_id": "devops-218113"
+        }
+      },
+      "metricKind": "GAUGE",
+      "valueType": "DOUBLE",
+      "points": [
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:55:00Z",
+            "endTime": "2018-10-17T09:55:00Z"
+          },
+          "value": {
+            "doubleValue": 0.44024972000632939
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:54:00Z",
+            "endTime": "2018-10-17T09:54:00Z"
+          },
+          "value": {
+            "doubleValue": 0.44276891747210811
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:53:00Z",
+            "endTime": "2018-10-17T09:53:00Z"
+          },
+          "value": {
+            "doubleValue": 0.44006946093511107
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:52:00Z",
+            "endTime": "2018-10-17T09:52:00Z"
+          },
+          "value": {
+            "doubleValue": 0.39817052564831856
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:51:00Z",
+            "endTime": "2018-10-17T09:51:00Z"
+          },
+          "value": {
+            "doubleValue": 0.52939230430488349
+          }
+        }
+      ]
+    },
+    {
+      "metric": {
+        "labels": {
+          "instance_name": "gke-mycluster-default-pool-efa6d3c2-j67m"
+        },
+        "type": "compute.googleapis.com/instance/cpu/utilization"
+      },
+      "resource": {
+        "type": "gce_instance",
+        "labels": {
+          "instance_id": "1918206308724199370",
+          "zone": "europe-west3-a",
+          "project_id": "devops-218113"
+        }
+      },
+      "metricKind": "GAUGE",
+      "valueType": "DOUBLE",
+      "points": [
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:55:00Z",
+            "endTime": "2018-10-17T09:55:00Z"
+          },
+          "value": {
+            "doubleValue": 0.088457796267528963
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:54:00Z",
+            "endTime": "2018-10-17T09:54:00Z"
+          },
+          "value": {
+            "doubleValue": 0.086023214068296744
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:53:00Z",
+            "endTime": "2018-10-17T09:53:00Z"
+          },
+          "value": {
+            "doubleValue": 0.087874789369378925
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:52:00Z",
+            "endTime": "2018-10-17T09:52:00Z"
+          },
+          "value": {
+            "doubleValue": 0.0904161933590179
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:51:00Z",
+            "endTime": "2018-10-17T09:51:00Z"
+          },
+          "value": {
+            "doubleValue": 0.0794300670709949
+          }
+        }
+      ]
+    },
+    {
+      "metric": {
+        "labels": {
+          "instance_name": "gke-mycluster-worker-becf8f5f-2tr4"
+        },
+        "type": "compute.googleapis.com/instance/cpu/utilization"
+      },
+      "resource": {
+        "type": "gce_instance",
+        "labels": {
+          "zone": "europe-west3-a",
+          "project_id": "devops-218113",
+          "instance_id": "5274102971371310256"
+        }
+      },
+      "metricKind": "GAUGE",
+      "valueType": "DOUBLE",
+      "points": [
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:55:00Z",
+            "endTime": "2018-10-17T09:55:00Z"
+          },
+          "value": {
+            "doubleValue": 0.57291366820916589
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:54:00Z",
+            "endTime": "2018-10-17T09:54:00Z"
+          },
+          "value": {
+            "doubleValue": 0.49142481620137912
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:53:00Z",
+            "endTime": "2018-10-17T09:53:00Z"
+          },
+          "value": {
+            "doubleValue": 0.47204581502435683
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:52:00Z",
+            "endTime": "2018-10-17T09:52:00Z"
+          },
+          "value": {
+            "doubleValue": 0.5160801691145821
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:51:00Z",
+            "endTime": "2018-10-17T09:51:00Z"
+          },
+          "value": {
+            "doubleValue": 0.80181512017753676
+          }
+        }
+      ]
+    },
+    {
+      "metric": {
+        "labels": {
+          "instance_name": "gke-mycluster-worker-becf8f5f-93xl"
+        },
+        "type": "compute.googleapis.com/instance/cpu/utilization"
+      },
+      "resource": {
+        "type": "gce_instance",
+        "labels": {
+          "project_id": "devops-218113",
+          "instance_id": "7133039515151322288",
+          "zone": "europe-west3-a"
+        }
+      },
+      "metricKind": "GAUGE",
+      "valueType": "DOUBLE",
+      "points": [
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:55:00Z",
+            "endTime": "2018-10-17T09:55:00Z"
+          },
+          "value": {
+            "doubleValue": 0.45099742794839132
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:54:00Z",
+            "endTime": "2018-10-17T09:54:00Z"
+          },
+          "value": {
+            "doubleValue": 0.45601536250201208
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:53:00Z",
+            "endTime": "2018-10-17T09:53:00Z"
+          },
+          "value": {
+            "doubleValue": 0.45873063487869858
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:52:00Z",
+            "endTime": "2018-10-17T09:52:00Z"
+          },
+          "value": {
+            "doubleValue": 0.40331429812684971
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:51:00Z",
+            "endTime": "2018-10-17T09:51:00Z"
+          },
+          "value": {
+            "doubleValue": 0.4314645381158963
+          }
+        }
+      ]
+    },
+    {
+      "metric": {
+        "labels": {
+          "instance_name": "gke-mycluster-worker-becf8f5f-ml84"
+        },
+        "type": "compute.googleapis.com/instance/cpu/utilization"
+      },
+      "resource": {
+        "type": "gce_instance",
+        "labels": {
+          "instance_id": "7193583358430629040",
+          "zone": "europe-west3-a",
+          "project_id": "devops-218113"
+        }
+      },
+      "metricKind": "GAUGE",
+      "valueType": "DOUBLE",
+      "points": [
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:55:00Z",
+            "endTime": "2018-10-17T09:55:00Z"
+          },
+          "value": {
+            "doubleValue": 0.3987727356579247
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:54:00Z",
+            "endTime": "2018-10-17T09:54:00Z"
+          },
+          "value": {
+            "doubleValue": 0.39967846805416041
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:53:00Z",
+            "endTime": "2018-10-17T09:53:00Z"
+          },
+          "value": {
+            "doubleValue": 0.42308556766790273
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:52:00Z",
+            "endTime": "2018-10-17T09:52:00Z"
+          },
+          "value": {
+            "doubleValue": 0.39990684463109383
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:51:00Z",
+            "endTime": "2018-10-17T09:51:00Z"
+          },
+          "value": {
+            "doubleValue": 0.36098626941076761
+          }
+        }
+      ]
+    },
+    {
+      "metric": {
+        "labels": {
+          "instance_name": "gke-mycluster-worker-becf8f5f-2tmd"
+        },
+        "type": "compute.googleapis.com/instance/cpu/utilization"
+      },
+      "resource": {
+        "type": "gce_instance",
+        "labels": {
+          "zone": "europe-west3-a",
+          "project_id": "devops-218113",
+          "instance_id": "8993211278640762032"
+        }
+      },
+      "metricKind": "GAUGE",
+      "valueType": "DOUBLE",
+      "points": [
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:55:00Z",
+            "endTime": "2018-10-17T09:55:00Z"
+          },
+          "value": {
+            "doubleValue": 0.384333787661429
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:54:00Z",
+            "endTime": "2018-10-17T09:54:00Z"
+          },
+          "value": {
+            "doubleValue": 0.38124319093160847
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:53:00Z",
+            "endTime": "2018-10-17T09:53:00Z"
+          },
+          "value": {
+            "doubleValue": 0.372011301518548
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:52:00Z",
+            "endTime": "2018-10-17T09:52:00Z"
+          },
+          "value": {
+            "doubleValue": 0.34691729849046171
+          }
+        },
+        {
+          "interval": {
+            "startTime": "2018-10-17T09:51:00Z",
+            "endTime": "2018-10-17T09:51:00Z"
+          },
+          "value": {
+            "doubleValue": 0.33778867309317773
+          }
+        }
+      ]
+    }
+  ]
+}
+

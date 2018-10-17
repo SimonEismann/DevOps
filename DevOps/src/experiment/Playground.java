@@ -11,23 +11,23 @@ import setup.Setup;
 public class Playground {
 	
 	public static void main(String[] args) throws InterruptedException, IOException {
-//		 System.out.println("SETUP");
+//		 System.err.println("SETUP");
 //		 Setup.setup5Pools();
 		 
-//		 System.out.println("WARMUP");
+//		 System.err.println("WARMUP");
 //		 Load.browse(LoadLevel.LOAD150);
 //		 Thread.sleep(300000);
 
-		 System.out.println("EXPERIMENT");
+		 System.err.println("EXPERIMENT");
 		 long expStart = Load.browse(LoadLevel.LOAD150, false); 
 		
-		 System.out.println("COLLECTING LOGS");
+		 System.err.println("COLLECTING LOGS");
 		 Logs.collectLogs(expStart, "PlayGround");
 
-//		 System.out.println("SHUTTING DOWN");
+//		 System.err.println("SHUTTING DOWN");
 //		 Setup.teardown();
 		 
-		 System.out.println("FINISHED");
+		 System.err.println("FINISHED");
 		 System.exit(0);
 	}
 

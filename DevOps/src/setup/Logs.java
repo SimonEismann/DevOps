@@ -26,15 +26,14 @@ public class Logs {
 		System.out.println(endTime);
 		String token = Util.sendCommandWithReturn("10.1.3.48", "gcloud auth application-default print-access-token ").trim();
 		String utilLogs = Util.sendCommandWithReturn("10.1.3.48", "curl -X GET -H \"Authorization: Bearer " + token + "\" \"https://monitoring.googleapis.com/v3/projects/devops-218113/timeSeries?filter=metric.type%3D%22compute.googleapis.com%2Finstance%2Fcpu%2Futilization%22&interval.endTime=" + endTime + "&interval.startTime=" + startTime + "\"");
-		System.out.println(utilLogs);
 		try (PrintWriter out = new PrintWriter("utilization.json")) {
 		    out.println(utilLogs);
 			out.close();
 		}
-		new File("/" +expName + "/test.csv").mkdirs();
-		Files.move(Paths.get("result_gcp.csv"), Paths.get("/" + expName + "/result_gcp.csv"), StandardCopyOption.REPLACE_EXISTING);
-		Files.move(Paths.get("timestamps.csv"), Paths.get("/" + expName + "/timestamps.csv"), StandardCopyOption.REPLACE_EXISTING);
-		Files.move(Paths.get("utilization.json"), Paths.get("/" + expName + "/utilization.json"), StandardCopyOption.REPLACE_EXISTING);
+		new File(expName + "/").mkdirs();
+		Files.move(Paths.get("result_gcp.csv"), Paths.get(expName + "/result_gcp.csv"), StandardCopyOption.REPLACE_EXISTING);
+		Files.move(Paths.get("timestamps.csv"), Paths.get(expName + "/timestamps.csv"), StandardCopyOption.REPLACE_EXISTING);
+		Files.move(Paths.get("utilization.json"), Paths.get(expName + "/utilization.json"), StandardCopyOption.REPLACE_EXISTING);
 	}
 
 }

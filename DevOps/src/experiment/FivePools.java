@@ -1,6 +1,5 @@
 package experiment;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import setup.Load;
@@ -11,25 +10,25 @@ import setup.Setup;
 public class FivePools {
 
 	public static void main(String[] args) throws InterruptedException, IOException {
-		 System.out.println("SETUP");
+		 System.err.println("SETUP");
 		 Setup.setup5Pools();
 		 
-		 System.out.println("WARMUP");
-		 Load.browse(LoadLevel.LOAD150, false);
-		 Thread.sleep(60000);
-		 Load.browse(LoadLevel.LOAD150, false);
-		 Thread.sleep(300000);
+		 System.err.println("WARMUP");
+		 Load.browse(LoadLevel.LOAD100, true);
+		 Thread.sleep(600000);
+		 Load.browse(LoadLevel.LOAD100, true);
+		 Thread.sleep(1800000);
 
-		 System.out.println("EXPERIMENT");
-		 long expStart = Load.browse(LoadLevel.LOAD150, false);
+		 System.err.println("EXPERIMENT");
+		 long expStart = Load.browse(LoadLevel.LOAD100, true);
 		 
-		 System.out.println("COLLECTING LOGS");
+		 System.err.println("COLLECTING LOGS");
 		 Logs.collectLogs(expStart, "5Pools-150Load");
 
-		 System.out.println("SHUTTING DOWN");
+		 System.err.println("SHUTTING DOWN");
 		 Setup.teardown();
 		 
-		 System.out.println("FINISHED");
+		 System.err.println("FINISHED");
 		 System.exit(0);
 	}
 }

@@ -41,6 +41,7 @@ public class Util {
 	}
 	
 	public static void sendCommandBackground(String host, String command) {
+		System.err.println("Background " + command + " @ " + host);
 		String user = "seadmin";
 		String password = "descartes";
 		try {
@@ -58,13 +59,13 @@ public class Util {
 
 			channel.connect();
 			Thread.sleep(500);
-			System.out.println("\t" + command + " @ " + host + " BACKGROUND");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void sendCloudShellCommand(String host, String command) {
+		System.err.println("Running " + command + " @ " + host);
 		String user = "seadmin";
 		String password = "descartes";
 		try {
@@ -92,13 +93,13 @@ public class Util {
 			}
 			channel.disconnect();
 			session.disconnect();
-			System.out.println("\t" + command + " @ " + host + " DONE");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void sendCommand(String host, String command) {
+		System.err.println("Running " + command + " @ " + host);
 		String user = "seadmin";
 		String password = "descartes";
 		try {
@@ -126,13 +127,13 @@ public class Util {
 			}
 			channel.disconnect();
 			session.disconnect();
-			System.out.println("\t" + command + " @ " + host + " DONE");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void sendCommandWithLogs(String host, String command) {
+		System.err.println("Running " + command + " @ " + host);
 		String user = "seadmin";
 		String password = "descartes";
 		try {
@@ -147,7 +148,6 @@ public class Util {
 			Channel channel = session.openChannel("exec");
 			((ChannelExec) channel).setCommand(command);
 			channel.setInputStream(null);
-			((ChannelExec) channel).setErrStream(System.err);
 
 			InputStream in = channel.getInputStream();
 			channel.connect();
@@ -155,10 +155,10 @@ public class Util {
 			while (true) {
 				while (in.available() > 0) {
 					int i = in.read(tmp, 0, 1024);
-					System.out.print("\t\t" + new String(tmp, 0, i));
+					System.out.print(new String(tmp, 0, i));
 				}
 				if (channel.isClosed()) {
-					System.out.println("\t\t" + "exit-status: " + channel.getExitStatus());
+					System.err.println("exit-status: " + channel.getExitStatus());
 					break;
 				}
 				try {
@@ -168,13 +168,13 @@ public class Util {
 			}
 			channel.disconnect();
 			session.disconnect();
-			System.out.println("\t" + command + " @ " + host + " DONE");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public static String sendCommandWithReturnAndLogs(String host, String command) {
+		System.err.println("Running " + command + " @ " + host);
 		String user = "seadmin";
 		String password = "descartes";
 		try {
@@ -189,7 +189,6 @@ public class Util {
 			Channel channel = session.openChannel("exec");
 			((ChannelExec) channel).setCommand(command);
 			channel.setInputStream(null);
-			((ChannelExec) channel).setErrStream(System.err);
 
 			InputStream in = channel.getInputStream();
 			channel.connect();
@@ -199,10 +198,10 @@ public class Util {
 				while (in.available() > 0) {
 					int i = in.read(tmp, 0, 1024);
 					out += new String(tmp, 0, i);
-					System.out.print("\t\t" + new String(tmp, 0, i));
+					System.out.print(new String(tmp, 0, i));
 				}
 				if (channel.isClosed()) {
-					System.out.println("\t\t" + "exit-status: " + channel.getExitStatus());
+					System.err.println("exit-status: " + channel.getExitStatus());
 					break;
 				}
 				try {
@@ -212,7 +211,6 @@ public class Util {
 			}
 			channel.disconnect();
 			session.disconnect();
-			System.out.println("\t" + command + " @ " + host + " DONE");
 			return out;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -221,6 +219,7 @@ public class Util {
 	}
 	
 	public static String sendCommandWithReturn(String host, String command) {
+		System.err.println("Running " + command + " @ " + host);
 		String user = "seadmin";
 		String password = "descartes";
 		try {
@@ -235,7 +234,6 @@ public class Util {
 			Channel channel = session.openChannel("exec");
 			((ChannelExec) channel).setCommand(command);
 			channel.setInputStream(null);
-			((ChannelExec) channel).setErrStream(System.err);
 
 			InputStream in = channel.getInputStream();
 			channel.connect();
@@ -256,7 +254,6 @@ public class Util {
 			}
 			channel.disconnect();
 			session.disconnect();
-			System.out.println("\t" + command + " @ " + host + " DONE");
 			return out;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -323,7 +320,7 @@ public class Util {
 					}
 				}
 
-				// System.out.println("filesize="+filesize+", file="+file);
+				// System.err.println("filesize="+filesize+", file="+file);
 
 				// send '\0'
 				buf[0] = 0;
@@ -363,7 +360,7 @@ public class Util {
 
 			session.disconnect();
 		} catch (Exception e) {
-			System.out.println(e);
+			System.err.println(e);
 			try {
 				if (fos != null)
 					fos.close();
@@ -446,7 +443,7 @@ public class Util {
 
 		    }
 		    catch(Exception e){
-		      System.out.println(e);
+		      System.err.println(e);
 		      try{if(fis!=null)fis.close();}catch(Exception ee){}
 		    }
 		  }
@@ -466,10 +463,10 @@ public class Util {
 				sb.append((char) c);
 			} while (c != '\n');
 			if (b == 1) { // error
-				System.out.print(sb.toString());
+				System.err.print(sb.toString());
 			}
 			if (b == 2) { // fatal error
-				System.out.print(sb.toString());
+				System.err.print(sb.toString());
 			}
 		}
 		return b;
