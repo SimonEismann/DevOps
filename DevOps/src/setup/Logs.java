@@ -20,6 +20,8 @@ public class Logs {
 		Thread.sleep(180000);
 		Util.getFile("10.1.3.48", "Setup/result_gcp.csv");
 		Util.getFile("10.1.3.48", "timestamps.csv");
+		Util.sendCommand("10.1.3.42", "mv timestamps.csv timestamps2.csv");
+		Util.getFile("10.1.3.42", "timestamps2.csv");
 		String startTime = formatter.format(new Date(experimentStart).toInstant());
 		String endTime = formatter.format(new Date(experimentEnd).toInstant());
 		System.out.println(startTime);
@@ -33,6 +35,7 @@ public class Logs {
 		new File(expName + "/").mkdirs();
 		Files.move(Paths.get("result_gcp.csv"), Paths.get(expName + "/result_gcp.csv"), StandardCopyOption.REPLACE_EXISTING);
 		Files.move(Paths.get("timestamps.csv"), Paths.get(expName + "/timestamps.csv"), StandardCopyOption.REPLACE_EXISTING);
+		Files.move(Paths.get("timestamps2.csv"), Paths.get(expName + "/timestamps2.csv"), StandardCopyOption.REPLACE_EXISTING);
 		Files.move(Paths.get("utilization.json"), Paths.get(expName + "/utilization.json"), StandardCopyOption.REPLACE_EXISTING);
 	}
 

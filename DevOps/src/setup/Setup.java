@@ -8,6 +8,8 @@ public class Setup {
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "rm -rf Setup/"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "svn co --username sie78ub --password nxhX387F https://se1.informatik.uni-wuerzburg.de/usvn/svn/members/SimonEismann/Experimente/DevOps/Round2/1Core/Setup"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform init"));
+		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform apply -auto-approve -target=google_container_cluster.primary"));
+		Thread.sleep(30000);
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform apply -auto-approve"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "gcloud container clusters get-credentials mycluster --region 'europe-west3-a'"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && kubectl apply -f teastore.yaml"));
@@ -21,6 +23,8 @@ public class Setup {
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "rm -rf Setup/"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "svn co --username sie78ub --password nxhX387F https://se1.informatik.uni-wuerzburg.de/usvn/svn/members/SimonEismann/Experimente/DevOps/Round2/4Cores/Setup"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform init"));
+		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform apply -auto-approve -target=google_container_cluster.primary"));
+		Thread.sleep(30000);
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform apply -auto-approve"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "gcloud container clusters get-credentials mycluster --region 'europe-west3-a'"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && kubectl apply -f teastore.yaml"));

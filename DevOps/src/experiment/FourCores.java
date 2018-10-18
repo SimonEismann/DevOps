@@ -9,26 +9,26 @@ import setup.Setup;
 
 public class FourCores {
 
-	public static void main(String[] args) throws InterruptedException, IOException {
-		 System.err.println("SETUP");
-		 Setup.setup4Cores();
-		 
-		 System.err.println("WARMUP");
-		 Load.browse(LoadLevel.LOAD450, true);
-		 Thread.sleep(600000);
-		 Load.browse(LoadLevel.LOAD450, true);
-		 Thread.sleep(1800000);
+	public static void performExperiment(LoadLevel loadLevel) throws InterruptedException, IOException {
+		System.err.println("SETUP");
+		Setup.setup4Cores();
 
-		 System.err.println("EXPERIMENT");
-		 long expStart = Load.browse(LoadLevel.LOAD450, true);
-		 
-		 System.err.println("COLLECTING LOGS");
-		 Logs.collectLogs(expStart, "4Cores-450Load");
+		System.err.println("WARMUP");
+		Load.browse(loadLevel, true);
+		Thread.sleep(60000);
+		Load.browse(loadLevel, true);
+		Thread.sleep(180000);
 
-		 System.err.println("SHUTTING DOWN");
-		 Setup.teardown();
-		 
-		 System.err.println("FINISHED");
-		 System.exit(0);
+		System.err.println("EXPERIMENT");
+		long expStart = Load.browse(loadLevel, true);
+
+		System.err.println("COLLECTING LOGS");
+		Logs.collectLogs(expStart, "4Cores-" + loadLevel.loadLevel + "Load");
+
+		System.err.println("SHUTTING DOWN");
+		Setup.teardown();
+
+		System.err.println("FINISHED");
+		System.exit(0);
 	}
 }
