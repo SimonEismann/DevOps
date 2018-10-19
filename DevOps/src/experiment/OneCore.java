@@ -29,6 +29,5 @@ public class OneCore {
 		Setup.teardown();
 
 		System.err.println("FINISHED");
-		System.exit(0);
 	}
 }
