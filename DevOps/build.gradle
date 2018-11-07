@@ -6,6 +6,7 @@ repositories {
 }
 
 dependencies {
+    compile files(org.gradle.internal.jvm.Jvm.current().toolsJar)
 	compile group: 'com.jcraft', name: 'jsch', version: '0.1.54'
 	compile group: 'com.google.http-client', name: 'google-http-client', version: '1.25.0'
 }
