@@ -7,10 +7,7 @@ repositories {
 }
 
 dependencies {
-    compile (
-      files(((URLClassLoader) ToolProvider.getSystemToolClassLoader()).getURLs()),
-      ...
-    }
+    compile files(((URLClassLoader) ToolProvider.getSystemToolClassLoader()).getURLs())
 	compile group: 'com.jcraft', name: 'jsch', version: '0.1.54'
 	compile group: 'com.google.http-client', name: 'google-http-client', version: '1.25.0'
 }
