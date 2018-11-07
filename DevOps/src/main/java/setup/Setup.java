@@ -11,11 +11,9 @@ public class Setup {
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform init"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
 				"cd Setup/ && terraform apply -auto-approve -target=google_container_cluster.primary"));
-		Thread.sleep(300000);
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform apply -auto-approve"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
 				"gcloud container clusters get-credentials mycluster --region 'europe-west3-a'"));
-		Thread.sleep(300000);
 		Util.kubectlApply("10.1.3.48", "cd Setup/ && kubectl apply -f teastore.yaml");
 		Thread.sleep(60000);
 		Util.kubectlApply("10.1.3.48", "cd Setup/ && kubectl apply -f recommender.yaml");
@@ -31,11 +29,9 @@ public class Setup {
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform init"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
 				"cd Setup/ && terraform apply -auto-approve -target=google_container_cluster.primary"));
-		Thread.sleep(300000);
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform apply -auto-approve"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
 				"gcloud container clusters get-credentials mycluster --region 'europe-west3-a'"));
-		Thread.sleep(300000);
 		Util.kubectlApply("10.1.3.48", "cd Setup/ && kubectl apply -f teastore.yaml");
 		Thread.sleep(60000);
 		Util.kubectlApply("10.1.3.48", "cd Setup/ && kubectl apply -f recommender.yaml");
@@ -52,11 +48,9 @@ public class Setup {
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform init"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
 				"cd Setup/ && terraform apply -auto-approve -target=google_container_cluster.primary"));
-		Thread.sleep(300000);
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform apply -auto-approve"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
 				"gcloud container clusters get-credentials mycluster --region 'europe-west3-a'"));
-		Thread.sleep(300000);
 		Util.kubectlApply("10.1.3.48", "cd Setup/ && kubectl apply -f teastore.yaml");
 		Thread.sleep(60000);
 		Util.kubectlApply("10.1.3.48", "cd Setup/ && kubectl apply -f recommender.yaml");
@@ -83,11 +77,9 @@ public class Setup {
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform init"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
 				"cd Setup/ && terraform apply -auto-approve -target=google_container_cluster.primary"));
-		Thread.sleep(300000);
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform apply -auto-approve"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
 				"gcloud container clusters get-credentials mycluster --region 'europe-west3-a'"));
-		Thread.sleep(300000);
 		Util.kubectlApply("10.1.3.48", "cd Setup/ && kubectl apply -f webui.yaml");
 		Thread.sleep(120000);
 		Util.kubectlApply("10.1.3.48", "cd Setup/ && kubectl apply -f teastore.yaml");

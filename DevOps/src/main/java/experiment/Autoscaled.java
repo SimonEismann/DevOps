@@ -9,7 +9,7 @@ import setup.Setup;
 
 public class Autoscaled {
 
-	public static void performExperiment(LoadLevel loadLevel) throws InterruptedException, IOException {
+	public static void performExperiment(LoadLevel loadLevel, String expName) throws InterruptedException, IOException {
 		System.err.println("SETUP");
 		Setup.setupAutoscaled();
 		Thread.sleep(60000);
@@ -18,7 +18,7 @@ public class Autoscaled {
 		long expStart = Load.browse(loadLevel, true);
 
 		System.err.println("COLLECTING LOGS");
-		Logs.collectLogs(expStart, "Autoscaled-" + loadLevel.loadLevel + "Load");
+		Logs.collectLogs(expStart, expName);
 
 		System.err.println("SHUTTING DOWN");
 		Setup.teardown();

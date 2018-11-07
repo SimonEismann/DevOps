@@ -18,6 +18,8 @@ public class Logs {
 	public static void collectLogs(long experimentStart, String expName) throws InterruptedException, IOException {
 		long experimentEnd = experimentStart + 5 * 60000;
 		String deployment = Util.sendCommandWithReturn("10.1.3.48", "kubectl get pod -o=custom-columns=NAME:.metadata.name,STATUS:.status.phase,NODE:.spec.nodeName -n default");
+		File f = new File("deployment.txt");
+		f.createNewFile();
 		try (PrintWriter out = new PrintWriter("deployment.txt")) {
 		    out.println(deployment);
 			out.close();
