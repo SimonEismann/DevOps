@@ -15,9 +15,9 @@ public class Setup {
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
 				"gcloud container clusters get-credentials mycluster --region 'europe-west3-a'"));
 		Util.kubectlApply("10.1.3.48", "cd Setup/ && kubectl apply -f teastore.yaml");
-		Thread.sleep(60000);
+		Thread.sleep(120000);
 		Util.kubectlApply("10.1.3.48", "cd Setup/ && kubectl apply -f recommender.yaml");
-		Thread.sleep(30000);
+		Thread.sleep(150000);
 		webuiIp = Util.sendCommandWithReturn("10.1.3.48",
 				"kubectl get service teastore-webui | awk '{ print $4}' | tail -n+2").trim();
 	}
@@ -33,9 +33,9 @@ public class Setup {
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
 				"gcloud container clusters get-credentials mycluster --region 'europe-west3-a'"));
 		Util.kubectlApply("10.1.3.48", "cd Setup/ && kubectl apply -f teastore.yaml");
-		Thread.sleep(60000);
+		Thread.sleep(120000);
 		Util.kubectlApply("10.1.3.48", "cd Setup/ && kubectl apply -f recommender.yaml");
-		Thread.sleep(30000);
+		Thread.sleep(150000);
 		webuiIp = Util.sendCommandWithReturn("10.1.3.48",
 				"kubectl get service teastore-webui | awk '{ print $4}' | tail -n+2").trim();
 		System.out.println(webuiIp);
@@ -52,9 +52,9 @@ public class Setup {
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
 				"gcloud container clusters get-credentials mycluster --region 'europe-west3-a'"));
 		Util.kubectlApply("10.1.3.48", "cd Setup/ && kubectl apply -f teastore.yaml");
-		Thread.sleep(60000);
+		Thread.sleep(120000);
 		Util.kubectlApply("10.1.3.48", "cd Setup/ && kubectl apply -f recommender.yaml");
-		Thread.sleep(30000);
+		Thread.sleep(150000);
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
 				"cd Setup/ && kubectl autoscale deployment teastore-persistence --min=1 --max=8 --cpu-percent=80"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
