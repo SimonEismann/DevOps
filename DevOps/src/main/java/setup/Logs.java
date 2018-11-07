@@ -17,6 +17,11 @@ public class Logs {
 
 	public static void collectLogs(long experimentStart, String expName) throws InterruptedException, IOException {
 		long experimentEnd = experimentStart + 5 * 60000;
+		String deployment = Util.sendCommandWithReturn("10.1.3.48", "kubectl get pod -o=custom-columns=NAME:.metadata.name,STATUS:.status.phase,NODE:.spec.nodeName -n default");
+		try (PrintWriter out = new PrintWriter("deployment.txt")) {
+		    out.println(deployment);
+			out.close();
+		}
 		Thread.sleep(180000);
 		Util.getFile("10.1.3.48", "Setup/result_gcp.csv");
 		Util.getFile("10.1.3.48", "timestamps.csv");
@@ -33,6 +38,7 @@ public class Logs {
 			out.close();
 		}
 		new File(expName + "/").mkdirs();
+		Files.move(Paths.get("deployment.txt"), Paths.get(expName + "/deployment.txt"), StandardCopyOption.REPLACE_EXISTING);
 		Files.move(Paths.get("result_gcp.csv"), Paths.get(expName + "/result_gcp.csv"), StandardCopyOption.REPLACE_EXISTING);
 		Files.move(Paths.get("timestamps.csv"), Paths.get(expName + "/timestamps.csv"), StandardCopyOption.REPLACE_EXISTING);
 		Files.move(Paths.get("timestamps2.csv"), Paths.get(expName + "/timestamps2.csv"), StandardCopyOption.REPLACE_EXISTING);

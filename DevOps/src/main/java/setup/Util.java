@@ -16,30 +16,32 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 
 public class Util {
-	
+
 	public static String getUrlContent(String urlin) {
 		URL url;
 		String body = "";
 		try {
 			url = new URL(urlin);
-		URLConnection con = url.openConnection();
-		InputStream in = con.getInputStream();
-		String encoding = con.getContentEncoding();  // ** WRONG: should use "con.getContentType()" instead but it returns something like "text/html; charset=UTF-8" so this value must be parsed to extract the actual encoding
-		encoding = encoding == null ? "UTF-8" : encoding;
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		byte[] buf = new byte[8192];
-		int len = 0;
-		while ((len = in.read(buf)) != -1) {
-		    baos.write(buf, 0, len);
-		}
-		body = new String(baos.toByteArray(), encoding);
+			URLConnection con = url.openConnection();
+			InputStream in = con.getInputStream();
+			String encoding = con.getContentEncoding(); // ** WRONG: should use "con.getContentType()" instead but it
+														// returns something like "text/html; charset=UTF-8" so this
+														// value must be parsed to extract the actual encoding
+			encoding = encoding == null ? "UTF-8" : encoding;
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			byte[] buf = new byte[8192];
+			int len = 0;
+			while ((len = in.read(buf)) != -1) {
+				baos.write(buf, 0, len);
+			}
+			body = new String(baos.toByteArray(), encoding);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return body;
 	}
-	
+
 	public static void sendCommandBackground(String host, String command) {
 		System.err.println("Background " + command + " @ " + host);
 		String user = "seadmin";
@@ -172,7 +174,7 @@ public class Util {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static String sendCommandWithReturnAndLogs(String host, String command) {
 		System.err.println("Running " + command + " @ " + host);
 		String user = "seadmin";
@@ -217,7 +219,24 @@ public class Util {
 			return "error";
 		}
 	}
-	
+
+	public static String kubectlApply(String host, String command) throws InterruptedException {
+		String result = "";
+		int i = 0;
+		do {
+			Thread.sleep(5000);
+			result = sendCommandWithReturn(host, command);
+			System.out.println(result);
+			i++;
+			if(!result.contains("created"))
+				System.out.println("Deployment failed, retrying...");
+		} while (!result.contains("created") && i < 100);
+		
+		if (i == 100)
+			throw new IllegalStateException("Failed to deploy to kubernetes!");
+		return result;
+	}
+
 	public static String sendCommandWithReturn(String host, String command) {
 		System.err.println("Running " + command + " @ " + host);
 		String user = "seadmin";
@@ -368,10 +387,10 @@ public class Util {
 			}
 		}
 	}
-	
-	  public static void putFile(String host, String fileName){
-		    FileInputStream fis=null;
-		    try{
+
+	public static void putFile(String host, String fileName) {
+		FileInputStream fis = null;
+		try {
 
 			JSch jsch = new JSch();
 			Session session = jsch.getSession("seadmin", host, 22);
@@ -381,72 +400,79 @@ public class Util {
 			session.setConfig(config);
 			session.connect();
 
-		      boolean ptimestamp = false;
+			boolean ptimestamp = false;
 
-		      File _lfile = new File(fileName);
-		      // exec 'scp -t rfile' remotely
-		      String command="scp " + (ptimestamp ? "-p" :"") +" -t " + _lfile.getName();
-		      Channel channel=session.openChannel("exec");
-		      ((ChannelExec)channel).setCommand(command);
+			File _lfile = new File(fileName);
+			// exec 'scp -t rfile' remotely
+			String command = "scp " + (ptimestamp ? "-p" : "") + " -t " + _lfile.getName();
+			Channel channel = session.openChannel("exec");
+			((ChannelExec) channel).setCommand(command);
 
-		      // get I/O streams for remote scp
-		      OutputStream out=channel.getOutputStream();
-		      InputStream in=channel.getInputStream();
+			// get I/O streams for remote scp
+			OutputStream out = channel.getOutputStream();
+			InputStream in = channel.getInputStream();
 
-		      channel.connect();
+			channel.connect();
 
-		      if(checkAck(in)!=0){
-			System.exit(0);
-		      }
+			if (checkAck(in) != 0) {
+				System.exit(0);
+			}
 
+			if (ptimestamp) {
+				command = "T " + (_lfile.lastModified() / 1000) + " 0";
+				// The access time should be sent here,
+				// but it is not accessible with JavaAPI ;-<
+				command += (" " + (_lfile.lastModified() / 1000) + " 0\n");
+				out.write(command.getBytes());
+				out.flush();
+				if (checkAck(in) != 0) {
+					System.exit(0);
+				}
+			}
 
-		      if(ptimestamp){
-		        command="T "+(_lfile.lastModified()/1000)+" 0";
-		        // The access time should be sent here,
-		        // but it is not accessible with JavaAPI ;-<
-		        command+=(" "+(_lfile.lastModified()/1000)+" 0\n"); 
-		        out.write(command.getBytes()); out.flush();
-		        if(checkAck(in)!=0){
-		  	  System.exit(0);
-		        }
-		      }
+			// send "C0644 filesize filename", where filename should not include '/'
+			long filesize = _lfile.length();
+			command = "C0644 " + filesize + " ";
+			command += _lfile.getName();
+			command += "\n";
+			out.write(command.getBytes());
+			out.flush();
+			if (checkAck(in) != 0) {
+				System.exit(0);
+			}
 
-		      // send "C0644 filesize filename", where filename should not include '/'
-		      long filesize=_lfile.length();
-		      command="C0644 "+filesize+" ";
-		      command+=_lfile.getName();
-		      command+="\n";
-		      out.write(command.getBytes()); out.flush();
-		      if(checkAck(in)!=0){
-			System.exit(0);
-		      }
+			// send a content of lfile
+			fis = new FileInputStream(fileName);
+			byte[] buf = new byte[1024];
+			while (true) {
+				int len = fis.read(buf, 0, buf.length);
+				if (len <= 0)
+					break;
+				out.write(buf, 0, len); // out.flush();
+			}
+			fis.close();
+			fis = null;
+			// send '\0'
+			buf[0] = 0;
+			out.write(buf, 0, 1);
+			out.flush();
+			if (checkAck(in) != 0) {
+				System.exit(0);
+			}
+			out.close();
 
-		      // send a content of lfile
-		      fis=new FileInputStream(fileName);
-		      byte[] buf=new byte[1024];
-		      while(true){
-		        int len=fis.read(buf, 0, buf.length);
-			if(len<=0) break;
-		        out.write(buf, 0, len); //out.flush();
-		      }
-		      fis.close();
-		      fis=null;
-		      // send '\0'
-		      buf[0]=0; out.write(buf, 0, 1); out.flush();
-		      if(checkAck(in)!=0){
-			System.exit(0);
-		      }
-		      out.close();
+			channel.disconnect();
+			session.disconnect();
 
-		      channel.disconnect();
-		      session.disconnect();
-
-		    }
-		    catch(Exception e){
-		      System.err.println(e);
-		      try{if(fis!=null)fis.close();}catch(Exception ee){}
-		    }
-		  }
+		} catch (Exception e) {
+			System.err.println(e);
+			try {
+				if (fis != null)
+					fis.close();
+			} catch (Exception ee) {
+			}
+		}
+	}
 
 	static int checkAck(InputStream in) throws IOException {
 		int b = in.read();

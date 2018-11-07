@@ -9,3 +9,13 @@ dependencies {
 	compile group: 'com.jcraft', name: 'jsch', version: '0.1.54'
 	compile group: 'com.google.http-client', name: 'google-http-client', version: '1.25.0'
 }
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'run.Runner'
+    }
+ 
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

@@ -14,7 +14,7 @@ public class Load {
 		String loadDriverLogs = Util.sendCommandWithReturnAndLogs("10.1.3.48",
 				"cd Setup/ && java -jar httploadgenerator.jar director -s 127.0.0.1" + ((useC42)? ",10.1.3.42":"") + " -a ./"
 						+ loadLevel.fileName
-						+ " -l ./browse.lua -o ./result_gcp.csv -p test --randomize-users --wd 180 --wp 10 --wr "
+						+ " -l ./browse.lua -o ./result_gcp.csv -p test --randomize-users --wd 1200 --wp 30 --wr "
 						+ Math.floor((double) loadLevel.loadLevel / ((useC42)? 2:1)) + " -u 5000");
 		String timestamp = loadDriverLogs.substring(loadDriverLogs.lastIndexOf("@") + 1, loadDriverLogs.lastIndexOf("@") + 14);
 		return Long.parseLong(timestamp);
