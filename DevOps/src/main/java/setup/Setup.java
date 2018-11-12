@@ -11,6 +11,7 @@ public class Setup {
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform init"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
 				"cd Setup/ && terraform apply -auto-approve -target=google_container_cluster.primary"));
+		Thread.sleep(120000);
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform apply -auto-approve"));
 		Thread.sleep(300000);
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
@@ -30,6 +31,7 @@ public class Setup {
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform init"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
 				"cd Setup/ && terraform apply -auto-approve -target=google_container_cluster.primary"));
+		Thread.sleep(120000);
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform apply -auto-approve"));
 		Thread.sleep(300000);
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
@@ -50,6 +52,7 @@ public class Setup {
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform init"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
 				"cd Setup/ && terraform apply -auto-approve -target=google_container_cluster.primary"));
+		Thread.sleep(120000);
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform apply -auto-approve"));
 		Thread.sleep(300000);
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
@@ -80,6 +83,7 @@ public class Setup {
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform init"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
 				"cd Setup/ && terraform apply -auto-approve -target=google_container_cluster.primary"));
+		Thread.sleep(120000);
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform apply -auto-approve"));
 		Thread.sleep(300000);
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
