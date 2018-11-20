@@ -11,7 +11,7 @@ import setup.LoadLevel;
 public class Runner {
 
 	public static void main(String[] args) throws InterruptedException, IOException {
-		for (int i = 6; i <= 10; i++)  {
+		for (int i = 9; i <= 10; i++)  {
 			Balanced.performExperiment(LoadLevel.LOAD700, "Balanced-700Load-" + i);
 			Autoscaled.performExperiment(LoadLevel.LOAD700, "Autoscaled-700Load-" + i);
 			OneCore.performExperiment(LoadLevel.LOAD700, "1Core-700Load-" + i);
