@@ -9,7 +9,7 @@ import setup.Setup;
 
 public class Balanced {
 
-	public static void performExperiment(LoadLevel loadLevel, String expName) throws InterruptedException, IOException {
+	public static void performExperiment(LoadLevel loadLevel, int expNumber) throws InterruptedException, IOException {
 		System.err.println("SETUP");
 		Setup.setupBalanced();
 		Thread.sleep(60000);
@@ -18,7 +18,7 @@ public class Balanced {
 		long expStart = Load.browse(loadLevel, true);
 
 		System.err.println("COLLECTING LOGS");
-		Logs.collectLogs(expStart, expName);
+		Logs.collectLogs(expStart, "Balanced-" + loadLevel.loadLevel + "Load-" + expNumber);
 
 		System.err.println("SHUTTING DOWN");
 		Setup.teardown();
