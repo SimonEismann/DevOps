@@ -11,13 +11,13 @@ import setup.LoadLevel;
 public class Runner {
 
 	public static void main(String[] args) throws InterruptedException, IOException {
-		for (int i = 9; i <= 10; i++)  {
+		for (int i = 1; i <= 8; i++)  {
 			Balanced.performExperiment(LoadLevel.LOAD900, i);
 		}
-		OneCore.performExperiment(LoadLevel.LOAD700, 1);
-		OneCore.performExperiment(LoadLevel.LOAD700, 9);
-		OneCore.performExperiment(LoadLevel.LOAD800, 1);
-		OneCore.performExperiment(LoadLevel.LOAD800, 2);
+		//OneCore.performExperiment(LoadLevel.LOAD700, 1);
+		//OneCore.performExperiment(LoadLevel.LOAD700, 9);
+		//OneCore.performExperiment(LoadLevel.LOAD800, 1);
+		//OneCore.performExperiment(LoadLevel.LOAD800, 2);
 		OneCore.performExperiment(LoadLevel.LOAD800, 6);
 		OneCore.performExperiment(LoadLevel.LOAD900, 1);
 		OneCore.performExperiment(LoadLevel.LOAD900, 2);
