@@ -12,14 +12,10 @@ public class Runner {
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 
-		OneCore.performExperiment(LoadLevel.LOAD800, 9);
-		
-		OneCore.performExperiment(LoadLevel.LOAD900, 1);
-		
-		FourCores.performExperiment(LoadLevel.LOAD800, 1);
-		FourCores.performExperiment(LoadLevel.LOAD900, 2);
+		FourCores.performExperiment(LoadLevel.LOAD900, 3);
 		
 		Balanced.performExperiment(LoadLevel.LOAD900, 7);
+		Balanced.performExperiment(LoadLevel.LOAD800, 8);
 		System.exit(0);
 	}
 	
