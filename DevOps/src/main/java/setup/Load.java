@@ -3,15 +3,15 @@ package setup;
 public class Load {
 
 	public static long browse(LoadLevel loadLevel, boolean useC42) throws InterruptedException {
-		Util.sendCommand("10.1.3.48", "sed -i 's/myplaceholder/http:\\/\\/" + Setup.webuiIp + "/g' Setup/browse.lua");
-		Util.sendCommandBackground("10.1.3.48", "pkill -f 'java -jar'");
-		Util.sendCommandBackground("10.1.3.48", "java -jar Setup/httploadgenerator.jar loadgenerator");
+		Util.sendCommand("10.1.3.32", "sed -i 's/myplaceholder/http:\\/\\/" + Setup.webuiIp + "/g' Setup/browse.lua");
+		Util.sendCommandBackground("10.1.3.32", "pkill -f 'java -jar'");
+		Util.sendCommandBackground("10.1.3.32", "java -jar Setup/httploadgenerator.jar loadgenerator");
 		if (useC42) {
 			Util.sendCommandBackground("10.1.3.42", "pkill -f 'java -jar'");
 			Util.sendCommandBackground("10.1.3.42", "java -jar httploadgenerator.jar loadgenerator");
 		}
 		Thread.sleep(3000);
-		String loadDriverLogs = Util.sendCommandWithReturnAndLogs("10.1.3.48",
+		String loadDriverLogs = Util.sendCommandWithReturnAndLogs("10.1.3.32",
 				"cd Setup/ && java -jar httploadgenerator.jar director -s 127.0.0.1" + ((useC42)? ",10.1.3.42":"") + " -a ./"
 						+ loadLevel.fileName
 						+ " -l ./browse.lua -o ./result_gcp.csv -p test --randomize-users --wd 1200 --wp 30 --wr "

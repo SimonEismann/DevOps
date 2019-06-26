@@ -24,6 +24,27 @@ public class Setup {
 				"kubectl get service teastore-webui | awk '{ print $4}' | tail -n+2").trim();
 	}
 
+	public static void setupRegression() throws InterruptedException {
+		System.out.println(Util.sendCommandWithReturn("10.1.3.32", "rm -rf Setup/"));
+		System.out.println(Util.sendCommandWithReturn("10.1.3.32",
+				"svn co --username sie78ub --password nxhX387F https://se1.informatik.uni-wuerzburg.de/usvn/svn/members/SimonEismann/Experimente/DevOps/Round2/Regression/Setup"));
+		System.out.println(Util.sendCommandWithReturn("10.1.3.32", "cd Setup/ && terraform init"));
+		System.out.println(Util.sendCommandWithReturn("10.1.3.32",
+				"cd Setup/ && terraform apply -auto-approve -target=google_container_cluster.primary"));
+		Thread.sleep(120000);
+		System.out.println(Util.sendCommandWithReturn("10.1.3.32", "cd Setup/ && terraform apply -auto-approve"));
+		Thread.sleep(300000);
+		System.out.println(Util.sendCommandWithReturn("10.1.3.32",
+				"gcloud container clusters get-credentials mycluster --region 'europe-west3-a'"));
+		Util.kubectlApply("10.1.3.32", "cd Setup/ && kubectl apply -f teastore.yaml");
+		Thread.sleep(120000);
+		Util.kubectlApply("10.1.3.32", "cd Setup/ && kubectl apply -f recommender.yaml");
+		Thread.sleep(150000);
+		webuiIp = Util.sendCommandWithReturn("10.1.3.32",
+				"kubectl get service teastore-webui | awk '{ print $4}' | tail -n+2").trim();
+		System.out.println(webuiIp);
+	}
+
 	public static void setup4Cores() throws InterruptedException {
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "rm -rf Setup/"));
 		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
@@ -100,7 +121,7 @@ public class Setup {
 	}
 
 	public static void teardown() {
-		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform destroy -auto-approve"));
+		System.out.println(Util.sendCommandWithReturn("10.1.3.32", "cd Setup/ && terraform destroy -auto-approve"));
 	}
 
 }
