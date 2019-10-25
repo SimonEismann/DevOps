@@ -44,6 +44,6 @@ gradle -b Java/build.gradle clean build
 java -jar Java/build/libs/Java.jar
 
 # Shutdown loaddriver instances
-#gcloud compute instances delete loaddriver1 --zone europe-west3-a --quiet
-#gcloud compute instances delete loaddriver2 --zone europe-west3-a --quiet
-#gcloud compute instances delete loaddriver3 --zone europe-west3-a --quiet
+gcloud compute instances delete loaddriver1 --zone europe-west3-a --quiet
+gcloud compute instances delete loaddriver2 --zone europe-west3-a --quiet
+gcloud compute instances delete loaddriver3 --zone europe-west3-a --quiet
