@@ -7,18 +7,18 @@ import setup.LoadLevel;
 import setup.Logs;
 import setup.Setup;
 
-public class FourCores {
+public class Balanced {
 
 	public static void performExperiment(LoadLevel loadLevel, int expNumber) throws InterruptedException, IOException {
 		System.err.println("SETUP");
-		Setup.setup4Cores();
+		Setup.setupBalanced();
 		Thread.sleep(60000);
 
 		System.err.println("EXPERIMENT");
-		long expStart = Load.browse(loadLevel, true);
+		long expStart = Load.browse(loadLevel);
 
 		System.err.println("COLLECTING LOGS");
-		Logs.collectLogs(expStart, "4Cores-" + loadLevel.loadLevel + "Load-" + expNumber);
+		Logs.collectLogs(expStart, "Balanced-" + loadLevel.loadLevel + "Load-" + expNumber);
 
 		System.err.println("SHUTTING DOWN");
 		Setup.teardown();

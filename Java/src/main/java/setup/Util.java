@@ -1,12 +1,17 @@
 package setup;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -16,6 +21,74 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 
 public class Util {
+
+	public static String executeCommands(String[] cmds, boolean output){
+
+	    File tempScript = null;
+	    try {
+	    	tempScript = createTempScript(cmds);
+	        ProcessBuilder pb = new ProcessBuilder("bash", tempScript.toString());
+	        if (!output)
+	        	pb.inheritIO();
+	        Process process = pb.start();
+	        process.waitFor();
+	        
+	        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+	        StringBuilder builder = new StringBuilder();
+	        String line = null;
+			while ( (line = reader.readLine()) != null) {
+			   builder.append(line);
+			   builder.append(System.getProperty("line.separator"));
+			}
+			String result = builder.toString();
+	        return result;
+	    } catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+	        tempScript.delete();
+	    }
+	    return null;
+	}
+
+	public static File createTempScript(String[] cmds) throws IOException {
+		File tempScript = File.createTempFile("script", null);
+
+		Writer streamWriter = new OutputStreamWriter(new FileOutputStream(tempScript));
+		PrintWriter printWriter = new PrintWriter(streamWriter);
+
+		printWriter.println("#!/bin/bash");
+		for (String cmd : cmds)
+			printWriter.println(cmd);
+
+		printWriter.close();
+
+		return tempScript;
+	}
+
+	public static String executeCommand(String directory, String command) {
+
+		StringBuffer output = new StringBuffer();
+
+		Process p;
+		try {
+			p = Runtime.getRuntime().exec(command, new String[] {}, new File(directory));
+			p.waitFor();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+			String line = "";
+			while ((line = reader.readLine()) != null) {
+				System.out.println(line);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return output.toString();
+
+	}
 
 	public static String getUrlContent(String urlin) {
 		URL url;
@@ -118,12 +191,14 @@ public class Util {
 			channel.setInputStream(null);
 
 			channel.connect();
-			while (true) {
+			int i = 0;
+			while (i < 3600) {
 				if (channel.isClosed()) {
 					break;
 				}
 				try {
 					Thread.sleep(1000);
+					i = i + 1;
 				} catch (Exception ee) {
 				}
 			}
@@ -196,7 +271,8 @@ public class Util {
 			channel.connect();
 			byte[] tmp = new byte[1024];
 			String out = "";
-			while (true) {
+			int j = 0;
+			while (j < 3600) {
 				while (in.available() > 0) {
 					int i = in.read(tmp, 0, 1024);
 					out += new String(tmp, 0, i);
@@ -208,6 +284,7 @@ public class Util {
 				}
 				try {
 					Thread.sleep(1000);
+					j += 1;
 				} catch (Exception ee) {
 				}
 			}
@@ -228,10 +305,10 @@ public class Util {
 			result = sendCommandWithReturn(host, command);
 			System.out.println(result);
 			i++;
-			if(!result.contains("created"))
+			if (!result.contains("created"))
 				System.out.println("Deployment failed, retrying...");
 		} while (!result.contains("created") && i < 100);
-		
+
 		if (i == 100)
 			throw new IllegalStateException("Failed to deploy to kubernetes!");
 		return result;

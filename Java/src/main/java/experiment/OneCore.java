@@ -15,7 +15,7 @@ public class OneCore {
 		Thread.sleep(60000);
 
 		System.err.println("EXPERIMENT");
-		long expStart = Load.browse(loadLevel, true);
+		long expStart = Load.browse(loadLevel);
 
 		System.err.println("COLLECTING LOGS");
 		Logs.collectLogs(expStart, "1Core-" + loadLevel.loadLevel + "Load-" + expNumber);

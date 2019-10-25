@@ -1,0 +1,232 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: teastore-db
+spec:
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-db
+    spec:
+      nodeSelector:
+        type: util
+      containers:
+      - name: teastore-db
+        image: descartesresearch/teastore-db:1.3.0
+        ports:
+        - containerPort: 3306
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "420m"
+          limits:
+            cpu: "2000m"
+            memory: "3Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-db
+  labels:
+    app: teastore
+    run: teastore-db
+spec:
+  ports:
+  - port: 3306
+    protocol: TCP
+  selector:
+    run: teastore-db
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: teastore-registry
+spec:
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-registry
+    spec:
+      nodeSelector:
+        type: util
+      containers:
+      - name: teastore-registry
+        image: descartesresearch/teastore-registry:1.3.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: USE_POD_IP
+          value: "true"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "420m"
+          limits:
+            cpu: "2000m"
+            memory: "3Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-registry
+  labels:
+    app: teastore
+    run: teastore-registry
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    run: teastore-registry
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: teastore-persistence
+spec:
+  replicas: 8
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-persistence
+    spec:
+      nodeSelector:
+        type: worker
+      containers:
+      - name: teastore-persistence
+        image: descartesresearch/teastore-persistence:1.3.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: USE_POD_IP
+          value: "true"
+        - name: REGISTRY_HOST
+          value: "teastore-registry"
+        - name: DB_HOST
+          value: "teastore-db"
+        - name: DB_PORT
+          value: "3306"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "420m"
+          limits:
+            cpu: "2000m"
+            memory: "3Gi"
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: teastore-auth
+spec:
+  replicas: 8
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-auth
+    spec:
+      nodeSelector:
+        type: worker
+      containers:
+      - name: teastore-auth
+        image: descartesresearch/teastore-auth:1.3.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: USE_POD_IP
+          value: "true"
+        - name: REGISTRY_HOST
+          value: "teastore-registry"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "420m"
+          limits:
+            cpu: "2000m"
+            memory: "3Gi"
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: teastore-image
+spec:
+  replicas: 8
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-image
+    spec:
+      nodeSelector:
+        type: worker
+      containers:
+      - name: teastore-image
+        image: descartesresearch/teastore-image:1.3.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: USE_POD_IP
+          value: "true"
+        - name: REGISTRY_HOST
+          value: "teastore-registry"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "420m"
+          limits:
+            cpu: "2000m"
+            memory: "3Gi"
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: teastore-webui
+spec:
+  replicas: 8
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-webui
+    spec:
+      nodeSelector:
+        type: worker
+      containers:
+      - name: teastore-webui
+        image: simoneismann/teastore-webui:1.3.0-Reg10
+        ports:
+        - containerPort: 8080
+        env:
+        - name: USE_POD_IP
+          value: "true"
+        - name: REGISTRY_HOST
+          value: "teastore-registry"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "420m"
+          limits:
+            cpu: "2000m"
+            memory: "3Gi"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-webui
+  labels:
+    app: teastore
+    run: teastore-webui
+spec:
+  type: LoadBalancer
+  ports:
+  - name: web
+    port: 80
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    run: teastore-webui

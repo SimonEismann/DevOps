@@ -2,6 +2,7 @@ package setup;
 
 public enum LoadLevel {
 
+	LOAD10("10.csv", 10), 
 	LOAD100("100.csv", 100), 
 	LOAD150("150.csv", 150), 
 	LOAD200("200.csv", 200), 
