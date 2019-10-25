@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: teastore-recommender
+spec:
+  replicas: 8
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-recommender
+    spec:
+      nodeSelector:
+        type: worker
+      containers:
+      - name: teastore-recommender
+        image: descartesresearch/teastore-recommender
+        ports:
+        - containerPort: 8080
+        env:
+        - name: USE_POD_IP
+          value: "true"
+        - name: REGISTRY_HOST
+          value: "teastore-registry"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "220m"
+          limits:
+            cpu: "2000m"
+            memory: "3Gi"

@@ -1,0 +1,48 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: teastore-webui
+spec:
+  replicas: 8
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-webui
+    spec:
+      nodeSelector:
+        type: worker
+      containers:
+      - name: teastore-webui
+        image: descartesresearch/teastore-webui
+        ports:
+        - containerPort: 8080
+        env:
+        - name: USE_POD_IP
+          value: "true"
+        - name: REGISTRY_HOST
+          value: "teastore-registry"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "620m"
+          limits:
+            cpu: "2000m"
+            memory: "3Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: teastore-webui
+  labels:
+    app: teastore
+    run: teastore-webui
+spec:
+  type: LoadBalancer
+  ports:
+  - name: web
+    port: 80
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    run: teastore-webui
