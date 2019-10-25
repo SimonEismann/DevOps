@@ -36,6 +36,12 @@ RUN gcloud components install kubectl
 
 # Add setup data
 ADD Setup /Setup
+COPY credentials.json /Setup/1Core/credentials.json
+COPY credentials.json /Setup/4Cores/credentials.json
+COPY credentials.json /Setup/Autoscaled/credentials.json
+COPY credentials.json /Setup/Balanced/credentials.json
+COPY credentials.json /Setup/Regression10/credentials.json
+COPY credentials.json /Setup/Regression30/credentials.json
 
 # Add java code
 ADD Java /Java
