@@ -14,9 +14,11 @@ In order to run the measurements, follow the following steps:
 2. Create a service account with sufficient privileges for your Google Cloud project
 3. Create and download a JSON keyfile for the service account, rename the file to credentials.json and move it to the base folder of the git project
 4. Run the following command in a docker-capable commandline (replace NAME_OF_YOUR_PROJECT with the name of your Google Cloud project):
+
 `docker build -t dev . ; docker run -e projectname="NAME_OF_YOUR_PROJECT" dev`
 5. Wait for the script to finish the measurement
-6. Run the following command in order to move the results files from the container to your system. Make sure to replace CONTAINER_ID with the id of the measurement container and TARGET_FOLDER with the path to a local folder.
+6. Run the following command in order to move the results files from the container to your system. Make sure to replace CONTAINER_ID with the id of the measurement container and TARGET_FOLDER with the path to a local folder:
+
 `docker cp CONTAINER_ID:/ TARGETFOLDER`
 
 ## Result interpretation ##
