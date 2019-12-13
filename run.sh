@@ -37,6 +37,14 @@ gcloud compute ssh --quiet --zone europe-west3-a loaddriver3  << EOF
 	exit
 EOF
 
+# Set projectname in terraform file
+sed -i "s/PROJECTNAME/${projectname}/g" /Setup/1Core/provider.tf
+sed -i "s/PROJECTNAME/${projectname}/g" /Setup/4Cores/provider.tf
+sed -i "s/PROJECTNAME/${projectname}/g" /Setup/Autoscaled/provider.tf
+sed -i "s/PROJECTNAME/${projectname}/g" /Setup/Balanced/provider.tf
+sed -i "s/PROJECTNAME/${projectname}/g" /Setup/Regression10/provider.tf
+sed -i "s/PROJECTNAME/${projectname}/g" /Setup/Regression30/provider.tf
+
 # Build Project
 gradle -b Java/build.gradle clean build 
 

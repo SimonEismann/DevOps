@@ -1,5 +1,5 @@
 provider "google" {
 credentials = "${file("credentials.json")}"
-project = "microservice-perf-regr"
+project = "PROJECTNAME"
 region = "europe-west3"
 }
