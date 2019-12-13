@@ -12,7 +12,7 @@ The full measurement is wrapped in a docker container that install all required 
 In order to run the measurements, follow the following steps:
 1. Checkout this repository
 2. Create a service account with sufficient privileges for your Google Cloud project
-3. Create and download a JSON keyfile for the service account, rename the file to credentials.json and move it to the base folder of the git project
+3. Create and download a JSON keyfile for the service account, rename the file to `credentials.json` and move it to the base folder of the git project
 4. Run the following command in a docker-capable commandline (replace NAME_OF_YOUR_PROJECT with the name of your Google Cloud project):
 
    `docker build -t dev . ; docker run -e projectname="NAME_OF_YOUR_PROJECT" dev`
