@@ -36,6 +36,7 @@ RUN gcloud components install kubectl
 
 # Add setup data
 ADD Setup /Setup
+COPY credentials.json /credentials.json
 COPY credentials.json /Setup/1Core/credentials.json
 COPY credentials.json /Setup/4Cores/credentials.json
 COPY credentials.json /Setup/Autoscaled/credentials.json

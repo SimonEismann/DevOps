@@ -1,6 +1,7 @@
 # Setup gcloud
 gcloud projects list
 gcloud config set project ${projectname}
+export GOOGLE_APPLICATION_CREDENTIALS="/credentials.json"
 
 # Start loaddriver instances
 gcloud compute instances create loaddriver1 --image-family ubuntu-1804-lts --image-project ${projectname} --zone europe-west3-a --image-project ubuntu-os-cloud

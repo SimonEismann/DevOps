@@ -30,6 +30,7 @@ public class Logs {
 		String endTime = formatter.format(new Date(experimentEnd).toInstant());
 		String token = Util
 				.executeCommands(new String[] { "gcloud auth application-default print-access-token " }, true).trim();
+		System.out.println(token);
 		String utilLogs = Util.executeCommands(new String[] { "curl -X GET -H \"Authorization: Bearer " + token
 				+ "\" \"https://monitoring.googleapis.com/v3/projects/microservice-perf-regr/timeSeries?filter=metric.type%3D%22compute.googleapis.com%2Finstance%2Fcpu%2Futilization%22&interval.endTime="
 				+ endTime + "&interval.startTime=" + startTime + "\"" }, true);
