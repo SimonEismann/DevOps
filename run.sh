@@ -1,7 +1,7 @@
 # Setup gcloud
 gcloud projects list
 gcloud config set project ${projectname}
-export GOOGLE_APPLICATION_CREDENTIALS="/credentials.json"
+export GOOGLE_APPLICATION_CREDENTIALS="/Setup/1Core/credentials.json"
 
 # Start loaddriver instances
 gcloud compute instances create loaddriver1 --image-family ubuntu-1804-lts --image-project ${projectname} --zone europe-west3-a --image-project ubuntu-os-cloud
@@ -45,6 +45,9 @@ sed -i "s/PROJECTNAME/${projectname}/g" /Setup/Autoscaled/provider.tf
 sed -i "s/PROJECTNAME/${projectname}/g" /Setup/Balanced/provider.tf
 sed -i "s/PROJECTNAME/${projectname}/g" /Setup/Regression10/provider.tf
 sed -i "s/PROJECTNAME/${projectname}/g" /Setup/Regression30/provider.tf
+
+# Set project name in java files
+sed -i "s/PROJECTNAME/${projectname}/g" /Java/src/main/java/setup/Logs.java
 
 # Build Project
 gradle -b Java/build.gradle clean build 

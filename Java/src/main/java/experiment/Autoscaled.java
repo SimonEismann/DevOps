@@ -21,7 +21,7 @@ public class Autoscaled {
 		Logs.collectLogs(expStart, "Autoscaled-" + loadLevel.loadLevel + "Load-" + expNumber);
 
 		System.err.println("SHUTTING DOWN");
-		Setup.teardown();
+		Setup.teardownAutoscaled();
 
 		System.err.println("FINISHED");
 	}

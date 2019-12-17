@@ -21,7 +21,7 @@ public class Regression10 {
 		Logs.collectLogs(expStart, "Regression10-" + loadLevel.loadLevel + "Load-" + expNumber);
 
 		System.err.println("SHUTTING DOWN");
-		Setup.teardown();
+		Setup.teardownRegression10();
 
 		System.err.println("FINISHED");
 	}

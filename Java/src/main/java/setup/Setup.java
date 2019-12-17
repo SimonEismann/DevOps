@@ -94,13 +94,28 @@ public class Setup {
 		webuiIp = Util.executeCommands(new String[] {"kubectl get service teastore-webui | awk '{ print $4}' | tail -n+2"}, true).trim();
 	}
 
-	public static void teardown() {
-		Util.executeCommands(new String[] {"cd /Setup/1Core", "terraform destroy -auto-approve"}, false);
-		Util.executeCommands(new String[] {"cd /Setup/Regression10", "terraform destroy -auto-approve"}, false);
-		Util.executeCommands(new String[] {"cd /Setup/Regression30", "terraform destroy -auto-approve"}, false);
-		Util.executeCommands(new String[] {"cd /Setup/4Cores", "terraform destroy -auto-approve"}, false);
-		Util.executeCommands(new String[] {"cd /Setup/Autoscaled", "terraform destroy -auto-approve"}, false);
-		Util.executeCommands(new String[] {"cd /Setup/Balanced", "terraform destroy -auto-approve"}, false);
+	public static void teardown1Core() {
+		Util.executeCommands(new String[] {"cd /Setup/1Core", "terraform destroy -force"}, false);
+	}
+
+	public static void teardown4Cores() {
+		Util.executeCommands(new String[] {"cd /Setup/4Cores", "terraform destroy -force"}, false);
+	}
+
+	public static void teardownRegression10() {
+		Util.executeCommands(new String[] {"cd /Setup/Regression10", "terraform destroy -force"}, false);
+	}
+
+	public static void teardownRegression30() {
+		Util.executeCommands(new String[] {"cd /Setup/Regression30", "terraform destroy -force"}, false);
+	}
+
+	public static void teardownAutoscaled() {
+		Util.executeCommands(new String[] {"cd /Setup/Autoscaled", "terraform destroy -force"}, false);
+	}
+
+	public static void teardownBalanced() {
+		Util.executeCommands(new String[] {"cd /Setup/Balanced", "terraform destroy -force"}, false);
 	}
 
 }

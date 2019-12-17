@@ -21,7 +21,7 @@ public class OneCore {
 		Logs.collectLogs(expStart, "1Core-" + loadLevel.loadLevel + "Load-" + expNumber);
 
 		System.err.println("SHUTTING DOWN");
-		Setup.teardown();
+		Setup.teardown1Core();
 
 		System.err.println("FINISHED");
 	}

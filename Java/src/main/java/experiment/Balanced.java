@@ -21,7 +21,7 @@ public class Balanced {
 		Logs.collectLogs(expStart, "Balanced-" + loadLevel.loadLevel + "Load-" + expNumber);
 
 		System.err.println("SHUTTING DOWN");
-		Setup.teardown();
+		Setup.teardownBalanced();
 
 		System.err.println("FINISHED");
 	}

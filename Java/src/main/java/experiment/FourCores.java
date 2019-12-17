@@ -21,7 +21,7 @@ public class FourCores {
 		Logs.collectLogs(expStart, "4Cores-" + loadLevel.loadLevel + "Load-" + expNumber);
 
 		System.err.println("SHUTTING DOWN");
-		Setup.teardown();
+		Setup.teardown4Cores();
 
 		System.err.println("FINISHED");
 	}

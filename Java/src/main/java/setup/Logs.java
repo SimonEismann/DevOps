@@ -28,22 +28,21 @@ public class Logs {
 		Thread.sleep(180000);
 		String startTime = formatter.format(new Date(experimentStart).toInstant());
 		String endTime = formatter.format(new Date(experimentEnd).toInstant());
-		String token = Util
-				.executeCommands(new String[] { "gcloud auth application-default print-access-token " }, true).trim();
+		String token = Util.executeCommands(new String[] { "export GOOGLE_APPLICATION_CREDENTIALS=\"/Setup/1Core/credentials.json\" && gcloud auth application-default print-access-token " }, true).trim();
 		System.out.println(token);
 		String utilLogs = Util.executeCommands(new String[] { "curl -X GET -H \"Authorization: Bearer " + token
-				+ "\" \"https://monitoring.googleapis.com/v3/projects/microservice-perf-regr/timeSeries?filter=metric.type%3D%22compute.googleapis.com%2Finstance%2Fcpu%2Futilization%22&interval.endTime="
+				+ "\" \"https://monitoring.googleapis.com/v3/projects/PROJECTNAME/timeSeries?filter=metric.type%3D%22compute.googleapis.com%2Finstance%2Fcpu%2Futilization%22&interval.endTime="
 				+ endTime + "&interval.startTime=" + startTime + "\"" }, true);
 		try (PrintWriter out = new PrintWriter("utilization.json")) {
 			out.println(utilLogs);
 			out.close();
 		}
 		new File("results/" + expName + "/").mkdirs();
-		Files.move(Paths.get("deployment.txt"), Paths.get(expName + "/deployment.txt"),
+		Files.move(Paths.get("deployment.txt"), Paths.get("results/" + expName + "/deployment.txt"),
 				StandardCopyOption.REPLACE_EXISTING);
-		Files.move(Paths.get("result_gcp.csv"), Paths.get(expName + "/result_gcp.csv"),
+		Files.move(Paths.get("result_gcp.csv"), Paths.get("results/" + expName + "/result_gcp.csv"),
 				StandardCopyOption.REPLACE_EXISTING);
-		Files.move(Paths.get("utilization.json"), Paths.get(expName + "/utilization.json"),
+		Files.move(Paths.get("utilization.json"), Paths.get("results/" + expName + "/utilization.json"),
 				StandardCopyOption.REPLACE_EXISTING);
 	}
 
