@@ -26,10 +26,6 @@ public class Logs {
 			out.close();
 		}
 		Thread.sleep(180000);
-		// Util.getFile("10.1.3.32", "Setup/result_gcp.csv");
-		// Util.getFile("10.1.3.32", "timestamps.csv");
-		// Util.sendCommand("10.1.227.75", "mv timestamps.csv timestamps2.csv");
-		// Util.getFile("10.1.227.75", "timestamps2.csv");
 		String startTime = formatter.format(new Date(experimentStart).toInstant());
 		String endTime = formatter.format(new Date(experimentEnd).toInstant());
 		String token = Util
@@ -41,14 +37,10 @@ public class Logs {
 			out.println(utilLogs);
 			out.close();
 		}
-		new File(expName + "/").mkdirs();
+		new File("results/" + expName + "/").mkdirs();
 		Files.move(Paths.get("deployment.txt"), Paths.get(expName + "/deployment.txt"),
 				StandardCopyOption.REPLACE_EXISTING);
 		Files.move(Paths.get("result_gcp.csv"), Paths.get(expName + "/result_gcp.csv"),
-				StandardCopyOption.REPLACE_EXISTING);
-		Files.move(Paths.get("timestamps.csv"), Paths.get(expName + "/timestamps.csv"),
-				StandardCopyOption.REPLACE_EXISTING);
-		Files.move(Paths.get("timestamps2.csv"), Paths.get(expName + "/timestamps2.csv"),
 				StandardCopyOption.REPLACE_EXISTING);
 		Files.move(Paths.get("utilization.json"), Paths.get(expName + "/utilization.json"),
 				StandardCopyOption.REPLACE_EXISTING);
