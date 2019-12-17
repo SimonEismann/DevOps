@@ -21,7 +21,7 @@ In order to run the measurements, follow the following steps:
 6. Wait for the script to finish the measurement
 7. Run the following command in order to move the results files from the container to your system. Make sure to replace CONTAINER_ID with the id of the measurement container and TARGET_FOLDER with the path to a local folder:
 
-   `docker cp CONTAINER_ID:/ TARGETFOLDER`
+   `docker cp CONTAINER_ID:/results TARGETFOLDER`
 
 ## Result interpretation ##
 The scripts to recreate the analysis and evaluation of the measurements from the manuscript are available as a CodeOcean capsule (https://doi.org/10.24433/CO.4876239.v1). In order to rerun the analysis using new measurements, simply upload your data to the `measurements` folder in the CodeOcean capsule and press the button `Reproducible Run`. 
