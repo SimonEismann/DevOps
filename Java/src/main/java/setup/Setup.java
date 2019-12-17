@@ -81,30 +81,26 @@ public class Setup {
 	}
 
 	public static void setupBalanced() throws InterruptedException {
-		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "rm -rf Setup/"));
-		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
-				"svn co --username sie78ub --password nxhX387F https://se1.informatik.uni-wuerzburg.de/usvn/svn/members/SimonEismann/Experimente/DevOps/Round2/Balanced/Setup"));
-		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform init"));
-		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
-				"cd Setup/ && terraform apply -auto-approve -target=google_container_cluster.primary"));
+		Util.executeCommands(new String[] {"mv /credentials.json /Setup/Balanced/credentials.json", "cd /Setup/Balanced", "terraform init", "terraform apply -auto-approve -target=google_container_cluster.primary"}, false);
 		Thread.sleep(120000);
-		System.out.println(Util.sendCommandWithReturn("10.1.3.48", "cd Setup/ && terraform apply -auto-approve"));
+		Util.executeCommands(new String[] {"mv /credentials.json /Setup/Balanced/credentials.json", "cd /Setup/Balanced", "terraform init", "terraform apply -auto-approve"}, false);
 		Thread.sleep(300000);
-		System.out.println(Util.sendCommandWithReturn("10.1.3.48",
-				"gcloud container clusters get-credentials mycluster --region 'europe-west3-a'"));
-		Util.kubectlApply("10.1.3.48", "cd Setup/ && kubectl apply -f webui.yaml");
+		Util.executeCommands(new String[] {"gcloud container clusters get-credentials mycluster --region 'europe-west3-a'"}, false);
+		Thread.sleep(100000);
+		Util.executeCommands(new String[] {"cd /Setup/Balanced", "kubectl apply -f teastore.yaml"}, false);
 		Thread.sleep(120000);
-		Util.kubectlApply("10.1.3.48", "cd Setup/ && kubectl apply -f teastore.yaml");
-		Thread.sleep(120000);
-		Util.kubectlApply("10.1.3.48", "cd Setup/ && kubectl apply -f recommender.yaml");
-		Thread.sleep(30000);
-		webuiIp = Util.sendCommandWithReturn("10.1.3.48",
-				"kubectl get service teastore-webui | awk '{ print $4}' | tail -n+2").trim();
-		System.out.println(webuiIp);
+		Util.executeCommands(new String[] {"cd /Setup/Balanced", "kubectl apply -f recommender.yaml"}, false);
+		Thread.sleep(150000);
+		webuiIp = Util.executeCommands(new String[] {"kubectl get service teastore-webui | awk '{ print $4}' | tail -n+2"}, true).trim();
 	}
 
 	public static void teardown() {
+		Util.executeCommands(new String[] {"cd /Setup/1Core", "terraform destroy -auto-approve"}, false);
 		Util.executeCommands(new String[] {"cd /Setup/Regression10", "terraform destroy -auto-approve"}, false);
+		Util.executeCommands(new String[] {"cd /Setup/Regression30", "terraform destroy -auto-approve"}, false);
+		Util.executeCommands(new String[] {"cd /Setup/4Cores", "terraform destroy -auto-approve"}, false);
+		Util.executeCommands(new String[] {"cd /Setup/Autoscaled", "terraform destroy -auto-approve"}, false);
+		Util.executeCommands(new String[] {"cd /Setup/Balanced", "terraform destroy -auto-approve"}, false);
 	}
 
 }

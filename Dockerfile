@@ -46,8 +46,15 @@ COPY credentials.json /Setup/Regression30/credentials.json
 # Add java code
 ADD Java /Java
 
-# Add loaddriver
+# Add load director
 ADD Load /Load
+
+# Add loaddriver
+ADD 700.csv 700.csv
+ADD 800.csv 800.csv
+ADD 900.csv 900.csv
+ADD browse.lua browse.lua
+ADD httploadgenerator.jar httploadgenerator.jar
 
 # Copy run file
 COPY run.sh /run.sh
