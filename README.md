@@ -1,6 +1,4 @@
 # MicroservicePerformanceMeasurements
-**DISCLAIMER: The measurements will take serveral days and incurr serveal thousands of dollars in hosting costs**
-
 This repository contains the measurement scripts to reproduce the performance measurements included in our manuscript "Microservices: A Performance Tester’s Dream or Nightmare?"
 
 ## Prerequisites ##
@@ -22,6 +20,8 @@ In order to run the measurements, follow the following steps:
 7. Run the following command in order to move the results files from the container to your system. Make sure to replace CONTAINER_ID with the id of the measurement container and TARGET_FOLDER with the path to a local folder:
 
    `docker cp CONTAINER_ID:/results TARGETFOLDER`
+   
+   While replicating the full measurements will take several days and incurr significant hosting costs, the first results should be available after an hour.
 
 ## Result interpretation ##
 The scripts to recreate the analysis and evaluation of the measurements from the manuscript are available as a CodeOcean capsule (https://doi.org/10.24433/CO.4876239.v1). In order to rerun the analysis using new measurements, simply upload your data to the `measurements` folder in the CodeOcean capsule and press the button `Reproducible Run`. 
